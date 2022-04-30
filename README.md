@@ -35,3 +35,29 @@ export AWS_ACCOUNT_ID="ID_DA_CONTA"
 ```
 ./execProducer.sh
 ```
+
+## AWS — Diferença entre SQS e SNS
+
+#### SNS (Simple Notification Service)
+
+SNS é um serviço baseado eum publish-subscribe, basicamente funciona com envios rápidos de notificações individuais ou em massa para um grande número de destinatários. Por ser extremamento flexível, torna muito fácil e econômico o envio de notificações para diversos dispositivos de diferentes plataformas, suportando e-mail, sms, http, SQS, entre outros.
+
+
+#### SQS (Simple Queue Services)
+
+SQS é um serviço baseado no enfileiramento de mensagens, totalmente gerenciável, que permite o desacoplamento de microsserviços, aplicações e sistemas distribuídos. No SQS os receptores das mensagens precisam buscá-las nas filas para que possam ler as mesmas, mensagens estas que podes ser armazenadas por um curto período de tempo (ajustável).
+
+Além disso, a mensagem não pode ser recebida por vários receptores ao mesmo tempo, pois uma vez que um receptor recebe uma determinada mensagem, ela passa para outro estado e fica indisponível para leitura de outros receptores. Desse modo, ao receber uma mensagem, o receptor pode processar e excluir ou permitir que a mensagem volte para a fila após um tempo definido pela política da fila.
+
+#### SNS x SQS
+
+
+
+| SNS | SQS |
+| -------- | -------- |
+| Assinatura de tópico (Pub/Sub)     | Fila     |
+| Envia mensagens para os consumidores     | Os consumidores pesquisam as mensagens na fila     |
+| Sem persistência. O consumidor que estiver disponível no momento da chegada da mensagem a recebe e a mensagem é excluída. Se nenhum consumidor estiver disponível, a mensagem será perdida.     | As mensagens são persistidas por algum tempo se nenhum consumidor estiver disponível.     |
+| Não garante a entrega     | Garante a entrega     |
+
+
