@@ -51,4 +51,13 @@ public class UtilMethods {
         }
     };
 
+    public static void sendMessage(SqsClient sqsClient, String queueUrl, String message) {
+        SendMessageRequest sendMsgRequest = SendMessageRequest.builder()
+                .queueUrl(queueUrl)
+                //.messageGroupId("fifo group")
+                .messageBody(message)
+                .build();
+        sqsClient.sendMessage(sendMsgRequest);
+    }
+
 }

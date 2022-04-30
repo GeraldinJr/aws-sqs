@@ -32,7 +32,24 @@ public class SqsService {
             System.out.println("Mensagem: " + msg.body());
         }
 
+        deletarMensagens(sqsClient, result.queueUrl(), mensagens);
         sqsClient.close();
+    }
+
+    public static void enviarMensagem(String msg) {
+        String fila = System.getenv("QUEUE_NAME");
+        String awsAccountId = System.getenv("AWS_ACCOUNT_ID");
+
+
+        SqsClient sqsClient = SqsClient.builder()
+                .region(Region.US_EAST_1)
+                .credentialsProvider(credentialsProvider)
+                .build();
+
+
+        GetQueueUrlResponse result = getQueueUrlResponse(fila, awsAccountId, sqsClient);
+
+        sendMessage(sqsClient, result.queueUrl(), msg);
     }
 
 
